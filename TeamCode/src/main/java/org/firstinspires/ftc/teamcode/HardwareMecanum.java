@@ -31,8 +31,10 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 /*
  * This file works in conjunction with the External Hardware Class sample called: ConceptExternalHardwareClass.java
@@ -64,6 +66,15 @@ public class HardwareMecanum {
     public DcMotor  backLeftDrive    = null;
     public DcMotor  backRightDrive   = null;
 
+    // local Opmode members
+    HardwareMap hwMap           =  null;
+    private ElapsedTime period  = new ElapsedTime();
+
+    // constructor
+    public HardwareMecanum(){
+
+    }
+
     // Define Drive constants.  Make them public so they CAN be used by the calling OpMode
     public static final double MID_SERVO       =  0.5 ;
     public static final double HAND_SPEED      =  0.02 ;  // sets rate to move servo
@@ -81,33 +92,47 @@ public class HardwareMecanum {
      * <p>
      * All of the hardware devices are accessed via the hardware map, and initialized.
      */
-    public void init()    {
+    public void init(HardwareMap ahwMap)    {
+        //save reference to hardwaremap
+        hwMap = ahwMap;
+
         // Define and Initialize Motors (note: need to use reference to actual OpMode).
-        frontLeftDrive  = myOpMode.hardwareMap.get(DcMotor.class, "leftFront");
-        frontRightDrive = myOpMode.hardwareMap.get(DcMotor.class, "rightFront");
-        backLeftDrive  = myOpMode.hardwareMap.get(DcMotor.class, "leftBack");
-        backRightDrive = myOpMode.hardwareMap.get(DcMotor.class, "rightBack");
+        frontLeftDrive  = hwMap.get(DcMotor.class, "fl");
+        frontRightDrive = hwMap.get(DcMotor.class, "fr");
+        backLeftDrive  = hwMap.get(DcMotor.class, "lb");
+        backRightDrive = hwMap.get(DcMotor.class, "rb");
 
         // To drive forward, most robots need the motor on one side to be reversed, because the axles point in opposite directions.
         // Pushing the left stick forward MUST make robot go forward. So adjust these two lines based on your first test drive.
         // Note: The settings here assume direct drive on left and right wheels.  Gear Reduction or 90 Deg drives may require direction flips
-        leftDrive.setDirection(DcMotor.Direction.REVERSE);
-        rightDrive.setDirection(DcMotor.Direction.FORWARD);
+        frontLeftDrive.setDirection(DcMotor.Direction.REVERSE);
+        frontRightDrive.setDirection(DcMotor.Direction.FORWARD);
+        backLeftDrive.setDirection(DcMotor.Direction.REVERSE);
+        backRightDrive.setDirection(DcMotor.Direction.FORWARD);
 
         // If there are encoders connected, switch to RUN_USING_ENCODER mode for greater accuracy
-        // leftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        // rightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        frontLeftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        frontRightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        backLeftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        backRightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        // Define and initialize ALL installed servos.
+        // Set all motors to zero power
+        frontLeftDrive.setPower(0);
+        frontRightDrive.setPower(0);
+        backLeftDrive.setPower(0);
+        backRightDrive.setPower(0);
+
+
+        /* Define and initialize ALL installed servos.
         leftHand = myOpMode.hardwareMap.get(Servo.class, "left_hand");
         rightHand = myOpMode.hardwareMap.get(Servo.class, "right_hand");
         leftHand.setPosition(MID_SERVO);
         rightHand.setPosition(MID_SERVO);
-
+           */
         myOpMode.telemetry.addData(">", "Hardware Initialized");
         myOpMode.telemetry.update();
     }
-
+/*
     /**
      * Calculates the left/right motor powers required to achieve the requested
      * robot motions: Drive (Axial motion) and Turn (Yaw motion).
@@ -115,7 +140,7 @@ public class HardwareMecanum {
      *
      * @param Drive     Fwd/Rev driving power (-1.0 to 1.0) +ve is forward
      * @param Turn      Right/Left turning power (-1.0 to 1.0) +ve is CW
-     */
+
     public void driveRobot(double Drive, double Turn) {
         // Combine drive and turn for blended motion.
         double left  = Drive + Turn;
@@ -138,7 +163,7 @@ public class HardwareMecanum {
      *
      * @param leftWheel     Fwd/Rev driving power (-1.0 to 1.0) +ve is forward
      * @param rightWheel    Fwd/Rev driving power (-1.0 to 1.0) +ve is forward
-     */
+
     public void setDrivePower(double leftWheel, double rightWheel) {
         // Output the values to the motor drives.
         leftDrive.setPower(leftWheel);
@@ -149,7 +174,7 @@ public class HardwareMecanum {
      * Pass the requested arm power to the appropriate hardware drive motor
      *
      * @param power driving power (-1.0 to 1.0)
-     */
+
     public void setArmPower(double power) {
         armMotor.setPower(power);
     }
@@ -158,10 +183,11 @@ public class HardwareMecanum {
      * Send the two hand-servos to opposing (mirrored) positions, based on the passed offset.
      *
      * @param offset
-     */
+
     public void setHandPositions(double offset) {
         offset = Range.clip(offset, -0.5, 0.5);
         leftHand.setPosition(MID_SERVO + offset);
         rightHand.setPosition(MID_SERVO - offset);
     }
 }
+*/
