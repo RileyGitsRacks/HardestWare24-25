@@ -97,8 +97,8 @@ public class HardwareMecanum {
         hwMap = ahwMap;
 
         // Define and Initialize Motors (note: need to use reference to actual OpMode).
-        frontLeftDrive  = hwMap.get(DcMotor.class, "fl");
-        frontRightDrive = hwMap.get(DcMotor.class, "fr");
+        frontLeftDrive  = hwMap.get(DcMotor.class, "lf");
+        frontRightDrive = hwMap.get(DcMotor.class, "rf");
         backLeftDrive  = hwMap.get(DcMotor.class, "lb");
         backRightDrive = hwMap.get(DcMotor.class, "rb");
 
@@ -187,7 +187,6 @@ public class HardwareMecanum {
     public void setHandPositions(double offset) {
         offset = Range.clip(offset, -0.5, 0.5);
         leftHand.setPosition(MID_SERVO + offset);
-        rightHand.setPosition(MID_SERVO - offset);
+        rightHand.setPosition(MID_SERVO - offset); */
     }
-}
-*/
+
