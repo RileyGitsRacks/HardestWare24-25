@@ -75,11 +75,11 @@ public class HardwareMecanum {
 
     }
 
-    // Define Drive constants.  Make them public so they CAN be used by the calling OpMode
+    /* Define Drive constants.  Make them public so they CAN be used by the calling OpMode
     public static final double MID_SERVO       =  0.5 ;
     public static final double HAND_SPEED      =  0.02 ;  // sets rate to move servo
     public static final double ARM_UP_POWER    =  0.45 ;
-    public static final double ARM_DOWN_POWER  = -0.45 ;
+    public static final double ARM_DOWN_POWER  = -0.45 ;*/
 
     // Define a constructor that allows the OpMode to pass a reference to itself.
     public HardwareMecanum(LinearOpMode opmode) {
@@ -107,8 +107,8 @@ public class HardwareMecanum {
         // Note: The settings here assume direct drive on left and right wheels.  Gear Reduction or 90 Deg drives may require direction flips
         frontLeftDrive.setDirection(DcMotor.Direction.REVERSE);
         frontRightDrive.setDirection(DcMotor.Direction.FORWARD);
-        backLeftDrive.setDirection(DcMotor.Direction.REVERSE);
-        backRightDrive.setDirection(DcMotor.Direction.FORWARD);
+        backLeftDrive.setDirection(DcMotor.Direction.FORWARD);
+        backRightDrive.setDirection(DcMotor.Direction.REVERSE);
 
         // If there are encoders connected, switch to RUN_USING_ENCODER mode for greater accuracy
         frontLeftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -128,9 +128,9 @@ public class HardwareMecanum {
         rightHand = myOpMode.hardwareMap.get(Servo.class, "right_hand");
         leftHand.setPosition(MID_SERVO);
         rightHand.setPosition(MID_SERVO);
-           */
+
         myOpMode.telemetry.addData(">", "Hardware Initialized");
-        myOpMode.telemetry.update();
+        myOpMode.telemetry.update();*/
     }
 /*
     /**

@@ -89,10 +89,10 @@ public class MecanumTeleop extends LinearOpMode {
             if (Math.abs(spin) > 0.1) {
                 // if someone is moving the right joystick, spin
                 robot.frontRightDrive.setPower(-spin);
-                robot.backRightDrive.setPower(-spin);
+                robot.backRightDrive.setPower(spin);
 
                 robot.frontLeftDrive.setPower(spin);
-                robot.backLeftDrive.setPower(spin);
+                robot.backLeftDrive.setPower(-spin);
             }
             else {
                 // if no one is pressing the right joystick, do the normal driving code
