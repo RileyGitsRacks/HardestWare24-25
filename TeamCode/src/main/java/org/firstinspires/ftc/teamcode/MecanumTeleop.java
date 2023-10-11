@@ -84,20 +84,20 @@ public class MecanumTeleop extends LinearOpMode {
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
 
-            double spin = gamepad1.right_stick_x * 10;
+            double spin = gamepad1.left_stick_x * 10;
 
             if (Math.abs(spin) > 0.1) {
                 // if someone is moving the right joystick, spin
                 robot.frontRightDrive.setPower(-spin);
-                robot.backRightDrive.setPower(spin);
+                robot.backRightDrive.setPower(-spin);
 
                 robot.frontLeftDrive.setPower(spin);
-                robot.backLeftDrive.setPower(-spin);
+                robot.backLeftDrive.setPower(spin);
             }
             else {
                 // if no one is pressing the right joystick, do the normal driving code
                 y1 = -gamepad1.left_stick_y * 10;
-                x1 = gamepad1.left_stick_x * 10;
+                x1 = gamepad1.right_stick_x * 10;
 
 
                 // need to rotate 45 degrees
