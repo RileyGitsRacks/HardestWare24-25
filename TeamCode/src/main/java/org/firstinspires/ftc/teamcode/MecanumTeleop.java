@@ -61,13 +61,6 @@ public class MecanumTeleop extends LinearOpMode {
         double x1 = 0; //left/right
         double y1 = 0; //front/back
 
-        double fortyFiveInRads = -Math.PI/4;
-        double cosine45 = Math.cos(fortyFiveInRads);
-        double sine45 = Math.sin(fortyFiveInRads);
-
-        double x2 = 0;
-        double y2 = 0;
-
 
         /* Initialize the hardware variables.
          * The init() method of the hardware class does all the work here
@@ -84,41 +77,21 @@ public class MecanumTeleop extends LinearOpMode {
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
 
-            double spin = gamepad1.left_stick_x * 10;
+            double y = -gamepad1.left_stick_y;
+            double rx = gamepad1.left_stick_x;
+            double x = gamepad1.right_stick_x * 0.5;
 
-            if (Math.abs(spin) > 0.1) {
-                // if someone is moving the right joystick, spin
-                robot.frontRightDrive.setPower(-spin);
-                robot.backRightDrive.setPower(-spin);
-
-                robot.frontLeftDrive.setPower(spin);
-                robot.backLeftDrive.setPower(spin);
-            }
-            else {
-                // if no one is pressing the right joystick, do the normal driving code
-                y1 = -gamepad1.left_stick_y * 10;
-                x1 = gamepad1.right_stick_x * 10;
-
-
-                // need to rotate 45 degrees
-
-                y2 = y1 * cosine45 + x1 * sine45;
-                x2 = x1 * cosine45 - y1 * sine45;
-
-
-                // Output the safe vales to the motor drives.
-                robot.frontLeftDrive.setPower(x2);
-                robot.backRightDrive.setPower(x2);
-
-                robot.frontRightDrive.setPower(y2);
-                robot.backLeftDrive.setPower(y2);
-            }
+            // Output the safe vales to the motor drives.
+            robot.frontLeftDrive.setPower(y + x + rx);
+            robot.backLeftDrive.setPower(y - x + rx);
+            robot.frontRightDrive.setPower(y - x - rx);
+            robot.backRightDrive.setPower(y + x - rx);
 
             // Send telemetry message to signify robot running;
             telemetry.addData("y1",  "%.2f", y1);
             telemetry.addData("x1",  "%.2f", x1);
-            telemetry.addData("y2",  "%.2f", y2);
-            telemetry.addData("x2",  "%.2f", x2);
+            telemetry.addData("y2",  "%.2f", x);
+            telemetry.addData("x2",  "%.2f", y);
             telemetry.update();
 
             // Pace this loop so jaw action is reasonable speed.
