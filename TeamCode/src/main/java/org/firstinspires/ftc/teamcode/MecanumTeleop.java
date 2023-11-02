@@ -57,10 +57,6 @@ public class MecanumTeleop extends LinearOpMode {
 
     @Override
     public void runOpMode() {
-        // set the initial value, that will change when the joystick is moved
-        double x1 = 0; //left/right
-        double y1 = 0; //front/back
-
 
         /* Initialize the hardware variables.
          * The init() method of the hardware class does all the work here
@@ -80,6 +76,7 @@ public class MecanumTeleop extends LinearOpMode {
             double y = -gamepad1.left_stick_y;
             double rx = gamepad1.left_stick_x;
             double x = gamepad1.right_stick_x * 0.5;
+            double a = (gamepad1.right_trigger * 10);
 
             // Output the safe vales to the motor drives.
             robot.frontLeftDrive.setPower(y + x + rx);
@@ -87,11 +84,15 @@ public class MecanumTeleop extends LinearOpMode {
             robot.frontRightDrive.setPower(y - x - rx);
             robot.backRightDrive.setPower(y + x - rx);
 
+            //Airplane launcher code
+
+            robot.leftAirplane.setPower(a);
+
             // Send telemetry message to signify robot running;
-            telemetry.addData("y1",  "%.2f", y1);
-            telemetry.addData("x1",  "%.2f", x1);
-            telemetry.addData("y2",  "%.2f", x);
-            telemetry.addData("x2",  "%.2f", y);
+            telemetry.addData("y",  "%.2f", y);
+            telemetry.addData("rx",  "%.2f", rx);
+            telemetry.addData("x",  "%.2f", x);
+            telemetry.addData("a",  "%.2f", y);
             telemetry.update();
 
             // Pace this loop so jaw action is reasonable speed.
