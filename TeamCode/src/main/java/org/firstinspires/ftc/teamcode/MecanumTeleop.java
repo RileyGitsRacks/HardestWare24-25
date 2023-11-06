@@ -54,6 +54,8 @@ public class MecanumTeleop extends LinearOpMode {
 
     /* Declare OpMode members. */
     HardwareMecanum robot = new HardwareMecanum();
+    double clawPosition = robot.CLAW_HOME; //Servo's position
+    final double CLAW_SPEED = 0.10; // Sets rate to move servo
 
     @Override
     public void runOpMode() {
@@ -76,7 +78,7 @@ public class MecanumTeleop extends LinearOpMode {
             double y = -gamepad1.left_stick_y;
             double rx = gamepad1.left_stick_x;
             double x = gamepad1.right_stick_x * 0.5;
-            double a = (gamepad1.right_trigger * 10);
+            //double a = (gamepad1.right_trigger * 10);
 
             // Output the safe vales to the motor drives.
             robot.frontLeftDrive.setPower(y + x + rx);
@@ -84,15 +86,27 @@ public class MecanumTeleop extends LinearOpMode {
             robot.frontRightDrive.setPower(y - x - rx);
             robot.backRightDrive.setPower(y + x - rx);
 
+            // Y and A control the claw
+            if (gamepad1.a) // if the "a" button is pressed on the gamepad, do this next line of code
+                clawPosition += CLAW_SPEED; // add to the servo position so it moves
+            else if (gamepad1.y) // if the "y" button is pressed, then do the next line of code
+                clawPosition -= CLAW_SPEED; // subtract from the servo position so it moves the other direction
+
+            // Move servo to the new position
+            clawPosition = Range.clip(clawPosition, robot.CLAW_MIN_RANGE, robot.CLAW_MAX_RANGE); // make sure the position is valid
+            robot.clawServo.setPosition(clawPosition); // this code here ACTUALLY sets the position of the servo so it moves.
+
             //Airplane launcher code
 
-            robot.leftAirplane.setPower(a);
+            /*robot.leftAirplane.setPower(a);
+            robot.rightAirplane.setPower(a);*/
 
             // Send telemetry message to signify robot running;
             telemetry.addData("y",  "%.2f", y);
             telemetry.addData("rx",  "%.2f", rx);
             telemetry.addData("x",  "%.2f", x);
-            telemetry.addData("a",  "%.2f", y);
+            //telemetry.addData("a",  "%.2f", y);
+            telemetry.addData("claw", "%.2f", clawPosition); // VERY IMPORTANT CODE, shows the values on the phone of the servo
             telemetry.update();
 
             // Pace this loop so jaw action is reasonable speed.
