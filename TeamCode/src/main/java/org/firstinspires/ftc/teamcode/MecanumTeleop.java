@@ -78,7 +78,7 @@ public class MecanumTeleop extends LinearOpMode {
             double y = -gamepad1.left_stick_y;
             double rx = gamepad1.left_stick_x;
             double x = gamepad1.right_stick_x * 0.5;
-            //double a = (gamepad1.right_trigger * 10);
+            double a = (gamepad1.right_trigger * 100);
 
             // Output the safe vales to the motor drives.
             robot.frontLeftDrive.setPower(y + x + rx);
@@ -98,14 +98,14 @@ public class MecanumTeleop extends LinearOpMode {
 
             //Airplane launcher code
 
-            /*robot.leftAirplane.setPower(a);
-            robot.rightAirplane.setPower(a);*/
+            robot.leftAirplane.setPower(a);
+            robot.rightAirplane.setPower(a);
 
             // Send telemetry message to signify robot running;
             telemetry.addData("y",  "%.2f", y);
             telemetry.addData("rx",  "%.2f", rx);
             telemetry.addData("x",  "%.2f", x);
-            //telemetry.addData("a",  "%.2f", y);
+            telemetry.addData("a",  "%.2f", a);
             telemetry.addData("claw", "%.2f", clawPosition); // VERY IMPORTANT CODE, shows the values on the phone of the servo
             telemetry.update();
 

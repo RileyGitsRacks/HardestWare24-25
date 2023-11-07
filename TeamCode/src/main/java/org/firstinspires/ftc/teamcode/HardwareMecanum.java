@@ -31,6 +31,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
@@ -65,8 +66,8 @@ public class HardwareMecanum {
     public DcMotor  frontRightDrive  = null;
     public DcMotor  backLeftDrive    = null;
     public DcMotor  backRightDrive   = null;
-    /*public DcMotor  leftAirplane = null;
-    public DcMotor  rightAirplane = null;*/
+    public DcMotor  leftAirplane = null;
+    public DcMotor  rightAirplane = null;
     public Servo    clawServo = null;
 
     public static final double CLAW_HOME      = 0.0; // Starting position for Servo Claw
@@ -103,8 +104,8 @@ public class HardwareMecanum {
         frontRightDrive = hwMap.get(DcMotor.class, "rf");
         backLeftDrive = hwMap.get(DcMotor.class, "lb");
         backRightDrive = hwMap.get(DcMotor.class, "rb");
-        /*leftAirplane = hwMap.get(DcMotor.class, "la");
-        rightAirplane = hwMap.get(DcMotor.class, "ra");*/
+        leftAirplane = hwMap.get(DcMotor.class, "la");
+        rightAirplane = hwMap.get(DcMotor.class, "ra");
 
 
         // To drive forward, most robots need the motor on one side to be reversed, because the axles point in opposite directions.
@@ -114,6 +115,8 @@ public class HardwareMecanum {
         frontRightDrive.setDirection(DcMotor.Direction.FORWARD);
         backLeftDrive.setDirection(DcMotor.Direction.REVERSE);
         backRightDrive.setDirection(DcMotor.Direction.FORWARD);
+        leftAirplane.setDirection(DcMotorSimple.Direction.FORWARD);
+        rightAirplane.setDirection(DcMotorSimple.Direction.FORWARD);
 
         // If there are encoders connected, switch to RUN_USING_ENCODER mode for greater accuracy
         frontLeftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -128,8 +131,8 @@ public class HardwareMecanum {
         frontRightDrive.setPower(0);
         backLeftDrive.setPower(0);
         backRightDrive.setPower(0);
-        /*leftAirplane.setPower(0);
-        rightAirplane.setPower(0);*/
+        leftAirplane.setPower(0);
+        rightAirplane.setPower(0);
 
         //Define and initialize ALL installed servos.
         clawServo = hwMap.get(Servo.class, "claw"); // set equal to name of the servo motor on driver hub
