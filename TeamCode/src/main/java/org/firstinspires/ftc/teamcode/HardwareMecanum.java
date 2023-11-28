@@ -66,6 +66,7 @@ public class HardwareMecanum {
     public DcMotor  frontRightDrive  = null;
     public DcMotor  backLeftDrive    = null;
     public DcMotor  backRightDrive   = null;
+    public DcMotor  arm = null;
     public DcMotor  leftAirplane = null;
     public DcMotor  rightAirplane = null;
     public Servo    clawServo = null;
@@ -104,6 +105,7 @@ public class HardwareMecanum {
         frontRightDrive = hwMap.get(DcMotor.class, "rf");
         backLeftDrive = hwMap.get(DcMotor.class, "lb");
         backRightDrive = hwMap.get(DcMotor.class, "rb");
+        arm = hwMap.get(DcMotor.class, "arm");
         leftAirplane = hwMap.get(DcMotor.class, "la");
         rightAirplane = hwMap.get(DcMotor.class, "ra");
 
@@ -115,6 +117,7 @@ public class HardwareMecanum {
         frontRightDrive.setDirection(DcMotor.Direction.FORWARD);
         backLeftDrive.setDirection(DcMotor.Direction.REVERSE);
         backRightDrive.setDirection(DcMotor.Direction.FORWARD);
+        arm.setDirection(DcMotor.Direction.FORWARD);
         leftAirplane.setDirection(DcMotorSimple.Direction.FORWARD);
         rightAirplane.setDirection(DcMotorSimple.Direction.FORWARD);
 
@@ -123,14 +126,16 @@ public class HardwareMecanum {
         frontRightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         backLeftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         backRightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        /*leftAirplane.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        rightAirplane.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);*/
+        arm.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        leftAirplane.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        rightAirplane.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         // Set all motors to zero power
         frontLeftDrive.setPower(0);
         frontRightDrive.setPower(0);
         backLeftDrive.setPower(0);
         backRightDrive.setPower(0);
+        arm.setPower(0);
         leftAirplane.setPower(0);
         rightAirplane.setPower(0);
 

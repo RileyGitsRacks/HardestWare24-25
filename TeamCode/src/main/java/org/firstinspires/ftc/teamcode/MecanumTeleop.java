@@ -78,7 +78,7 @@ public class MecanumTeleop extends LinearOpMode {
             double y = -gamepad1.left_stick_y;
             double rx = gamepad1.left_stick_x;
             double x = gamepad1.right_stick_x * 0.5;
-            double a = (gamepad1.right_trigger * 100);
+            double a = (gamepad2.right_trigger * 0.5);
 
             // Output the safe vales to the motor drives.
             robot.frontLeftDrive.setPower(y + x + rx);
@@ -87,14 +87,20 @@ public class MecanumTeleop extends LinearOpMode {
             robot.backRightDrive.setPower(y + x - rx);
 
             // Y and A control the claw
-            if (gamepad1.a) // if the "a" button is pressed on the gamepad, do this next line of code
+            if (gamepad2.a) // if the "a" button is pressed on the gamepad, do this next line of code
                 clawPosition += CLAW_SPEED; // add to the servo position so it moves
-            else if (gamepad1.y) // if the "y" button is pressed, then do the next line of code
+            else if (gamepad2.y) // if the "y" button is pressed, then do the next line of code
                 clawPosition -= CLAW_SPEED; // subtract from the servo position so it moves the other direction
 
             // Move servo to the new position
             clawPosition = Range.clip(clawPosition, robot.CLAW_MIN_RANGE, robot.CLAW_MAX_RANGE); // make sure the position is valid
             robot.clawServo.setPosition(clawPosition); // this code here ACTUALLY sets the position of the servo so it moves.
+
+            //Arm motor code
+            if (gamepad2.right_bumper)
+                robot.arm.setPower(1);
+            else if (gamepad2.left_bumper)
+                robot.arm.setPower(-1);
 
             //Airplane launcher code
 
@@ -107,6 +113,7 @@ public class MecanumTeleop extends LinearOpMode {
             telemetry.addData("x",  "%.2f", x);
             telemetry.addData("a",  "%.2f", a);
             telemetry.addData("claw", "%.2f", clawPosition); // VERY IMPORTANT CODE, shows the values on the phone of the servo
+            telemetry.addData("arm","%.2f");
             telemetry.update();
 
             // Pace this loop so jaw action is reasonable speed.
