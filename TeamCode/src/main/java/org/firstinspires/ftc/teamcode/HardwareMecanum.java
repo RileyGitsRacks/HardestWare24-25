@@ -69,11 +69,16 @@ public class HardwareMecanum {
     public DcMotor  arm = null;
     public DcMotor  leftAirplane = null;
     public DcMotor  rightAirplane = null;
+    public Servo    planeServo = null;
     public Servo    clawServo = null;
 
     public static final double CLAW_HOME      = 0.0; // Starting position for Servo Claw
     public static final double CLAW_MIN_RANGE = 0.0; // Smallest number value allowed for servo position
     public static final double CLAW_MAX_RANGE = 1.0; // Largest number value allowed for servo position
+
+    public static final double PLANE_HOME      = 0.0; // Starting position for Servo Claw
+    public static final double PLANE_MIN_RANGE = 0.0; // Smallest number value allowed for servo position
+    public static final double PLANE_MAX_RANGE = 1.0; // Largest number value allowed for servo position
 
     // local Opmode members
     HardwareMap hwMap           =  null;
@@ -142,5 +147,8 @@ public class HardwareMecanum {
         //Define and initialize ALL installed servos.
         clawServo = hwMap.get(Servo.class, "claw"); // set equal to name of the servo motor on driver hub
         clawServo.setPosition(CLAW_HOME); // setPosition actually sets the servos position and moves it
+
+        planeServo = hwMap.get(Servo.class, "plane");
+        planeServo.setPosition(PLANE_HOME);
     }
 }
