@@ -149,6 +149,6 @@ public class HardwareMecanum {
         clawServo.setPosition(CLAW_HOME); // setPosition actually sets the servos position and moves it
 
         planeServo = hwMap.get(Servo.class, "plane");
-        planeServo.setPosition(PLANE_HOME);
+        //planeServo.setPosition(PLANE_HOME);
     }
 }
