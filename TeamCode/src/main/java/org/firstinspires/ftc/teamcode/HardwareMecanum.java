@@ -67,6 +67,7 @@ public class HardwareMecanum {
     public DcMotor  backLeftDrive    = null;
     public DcMotor  backRightDrive   = null;
     public DcMotor  arm = null;
+    public DcMotor  hook = null;
     public DcMotor  leftAirplane = null;
     public DcMotor  rightAirplane = null;
     public Servo    planeServo = null;
@@ -111,6 +112,7 @@ public class HardwareMecanum {
         backLeftDrive = hwMap.get(DcMotor.class, "lb");
         backRightDrive = hwMap.get(DcMotor.class, "rb");
         arm = hwMap.get(DcMotor.class, "arm");
+        hook = hwMap.get(DcMotor.class, "hook");
         leftAirplane = hwMap.get(DcMotor.class, "la");
         rightAirplane = hwMap.get(DcMotor.class, "ra");
 
@@ -123,6 +125,7 @@ public class HardwareMecanum {
         backLeftDrive.setDirection(DcMotor.Direction.REVERSE);
         backRightDrive.setDirection(DcMotor.Direction.FORWARD);
         arm.setDirection(DcMotor.Direction.FORWARD);
+        hook.setDirection(DcMotorSimple.Direction.FORWARD);
         leftAirplane.setDirection(DcMotorSimple.Direction.FORWARD);
         rightAirplane.setDirection(DcMotorSimple.Direction.FORWARD);
 
@@ -132,6 +135,7 @@ public class HardwareMecanum {
         backLeftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         backRightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         arm.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        hook.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         leftAirplane.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         rightAirplane.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
@@ -141,6 +145,7 @@ public class HardwareMecanum {
         backLeftDrive.setPower(0);
         backRightDrive.setPower(0);
         arm.setPower(0);
+        hook.setPower(0);
         leftAirplane.setPower(0);
         rightAirplane.setPower(0);
 
@@ -149,6 +154,6 @@ public class HardwareMecanum {
         clawServo.setPosition(CLAW_HOME); // setPosition actually sets the servos position and moves it
 
         planeServo = hwMap.get(Servo.class, "plane");
-        //planeServo.setPosition(PLANE_HOME);
+        planeServo.setPosition(PLANE_HOME);
     }
 }

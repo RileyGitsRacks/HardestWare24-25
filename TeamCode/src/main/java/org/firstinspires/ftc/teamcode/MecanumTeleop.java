@@ -84,6 +84,8 @@ public class MecanumTeleop extends LinearOpMode {
             boolean a = (gamepad2.a);
             double armR = gamepad2.right_trigger;
             double armL = gamepad2.left_trigger;
+            double hookR = gamepad1.right_trigger;
+            double hookL = gamepad1.left_trigger;
 
 
 
@@ -94,16 +96,17 @@ public class MecanumTeleop extends LinearOpMode {
             robot.backRightDrive.setPower(y + x - rx);
 
             // left bumper and right bumper control the claw
-            if (gamepad2.right_bumper) // if the right bumper is pressed on the gamepad, do this next line of code
+            if (gamepad2.right_bumper) { // if the right bumper is pressed on the gamepad, do this next line of code
                 clawPosition += CLAW_SPEED; // add to the servo position so it moves
-            else if (gamepad2.left_bumper) // if the left bumper button is pressed, then do the next line of code
-                clawPosition -= CLAW_SPEED; // subtract from the servo position so it moves the other direction
+            }else if (gamepad2.left_bumper) { // if the left bumper button is pressed, then do the next line of code
+                clawPosition -= CLAW_SPEED;// subtract from the servo position so it moves the other direction
+            }
 
-            if (gamepad2.dpad_up) // if the up d-pad is pressed on the gamepad, do this next line of cod
+            if (gamepad2.dpad_up) { // if the up d-pad is pressed on the gamepad, do this next line of cod
                 planePosition += PLANE_SPEED; // add to the servo position so it moves
-            else if (gamepad2.dpad_down) // if the down d-pad is pressed, then do the next line of code
+            }else if (gamepad2.dpad_down) { // if the down d-pad is pressed, then do the next line of code
                 planePosition -= PLANE_SPEED; // subtract from the servo position so it moves the other direction
-
+            }
             // Move servo to the new position
             clawPosition = Range.clip(clawPosition, robot.CLAW_MIN_RANGE, robot.CLAW_MAX_RANGE); // make sure the position is valid
             robot.clawServo.setPosition(clawPosition); // this code here ACTUALLY sets the position of the servo so it moves.
@@ -115,18 +118,41 @@ public class MecanumTeleop extends LinearOpMode {
 
             robot.arm.setPower(armR - armL);
 
+            //Hook motor code
+
+            int hookPos = robot.hook.getCurrentPosition();
+
+            robot.hook.setPower(hookR - hookL);
+
+            /*if (gamepad1.dpad_up && lift1Pos <= 1400)
+                robot.liftMotor1.setPower(1);
+            else if (gamepad1.dpad_down && lift1Pos > -10 && lift2Pos <= 0)
+                robot.liftMotor1.setPower(-1);
+            else
+                robot.liftMotor1.setPower(0);
+
+            if (gamepad1.dpad_up && lift1Pos >= 1400)
+                robot.liftMotor2.setPower(1);
+            else if (gamepad1.dpad_down && lift1Pos >= 1400 && lift2Pos > 0)
+                robot.liftMotor2.setPower(-1);
+            else
+                robot.liftMotor2.setPower(0); */
+
             //Airplane launcher code
-            if(a)
+            if(a) {
                 robot.leftAirplane.setPower(1);
                 robot.rightAirplane.setPower(1);
+            }
 
             // Send telemetry message to signify robot running;
             telemetry.addData("y",  "%.2f", y);
             telemetry.addData("rx",  "%.2f", rx);
             telemetry.addData("x",  "%.2f", x);
-            telemetry.addData("a",  "%.2f", a);
-            telemetry.addData("armR", "%.2f");
-            telemetry.addData("armL", "%.2f");
+            telemetry.addData("a",  "%b", a);
+            telemetry.addData("armR", "%.2f", armR);
+            telemetry.addData("armL", "%.2f", armL);
+            telemetry.addData("hookR", "%.2f", hookR);
+            telemetry.addData("hookL", "%.2f", hookL);
             telemetry.addData("claw", "%.2f", clawPosition); // VERY IMPORTANT CODE, shows the values on the phone of the servo
             telemetry.addData("plane", "%.2f", planePosition); // VERY IMPORTANT CODE, shows the values on the phone of the servo
             telemetry.update();
