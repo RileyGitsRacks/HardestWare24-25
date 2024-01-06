@@ -77,9 +77,9 @@ public class HardwareMecanum {
     public static final double CLAW_MIN_RANGE = 0.0; // Smallest number value allowed for servo position
     public static final double CLAW_MAX_RANGE = 1.0; // Largest number value allowed for servo position
 
-    public static final double PLANE_HOME      = 0.0; // Starting position for Servo Claw
-    public static final double PLANE_MIN_RANGE = 0.0; // Smallest number value allowed for servo position
-    public static final double PLANE_MAX_RANGE = 1.0; // Largest number value allowed for servo position
+    public static final double PLANE_HOME      = 0.30; // Starting position for Servo Claw
+    public static final double PLANE_MIN_RANGE = 0.00; // Smallest number value allowed for servo position
+    public static final double PLANE_MAX_RANGE = 0.30; // Largest number value allowed for servo position
 
     // local Opmode members
     HardwareMap hwMap           =  null;

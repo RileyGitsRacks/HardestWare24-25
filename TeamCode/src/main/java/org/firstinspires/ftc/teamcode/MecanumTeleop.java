@@ -84,8 +84,6 @@ public class MecanumTeleop extends LinearOpMode {
             boolean a = (gamepad2.a);
             double armR = gamepad2.right_trigger;
             double armL = gamepad2.left_trigger;
-            double hookR = gamepad1.right_trigger;
-            double hookL = gamepad1.left_trigger;
 
 
 
@@ -102,9 +100,9 @@ public class MecanumTeleop extends LinearOpMode {
                 clawPosition -= CLAW_SPEED;// subtract from the servo position so it moves the other direction
             }
 
-            if (gamepad2.dpad_up) { // if the up d-pad is pressed on the gamepad, do this next line of cod
+            if (gamepad2.dpad_down) { // if the up d-pad is pressed on the gamepad, do this next line of cod
                 planePosition += PLANE_SPEED; // add to the servo position so it moves
-            }else if (gamepad2.dpad_down) { // if the down d-pad is pressed, then do the next line of code
+            }else if (gamepad2.dpad_up) { // if the down d-pad is pressed, then do the next line of code
                 planePosition -= PLANE_SPEED; // subtract from the servo position so it moves the other direction
             }
             // Move servo to the new position
@@ -122,26 +120,20 @@ public class MecanumTeleop extends LinearOpMode {
 
             int hookPos = robot.hook.getCurrentPosition();
 
-            robot.hook.setPower(hookR - hookL);
-
-            /*if (gamepad1.dpad_up && lift1Pos <= 1400)
-                robot.liftMotor1.setPower(1);
-            else if (gamepad1.dpad_down && lift1Pos > -10 && lift2Pos <= 0)
-                robot.liftMotor1.setPower(-1);
+            if (gamepad1.right_bumper && hookPos >= 5000)
+                robot.hook.setPower(1);
+            else if (gamepad1.left_bumper && hookPos <= 12700)
+                robot.hook.setPower(-1);
             else
-                robot.liftMotor1.setPower(0);
-
-            if (gamepad1.dpad_up && lift1Pos >= 1400)
-                robot.liftMotor2.setPower(1);
-            else if (gamepad1.dpad_down && lift1Pos >= 1400 && lift2Pos > 0)
-                robot.liftMotor2.setPower(-1);
-            else
-                robot.liftMotor2.setPower(0); */
+                robot.hook.setPower(0);
 
             //Airplane launcher code
             if(a) {
                 robot.leftAirplane.setPower(1);
                 robot.rightAirplane.setPower(1);
+            }else {
+                robot.leftAirplane.setPower(0);
+                robot.rightAirplane.setPower(0);
             }
 
             // Send telemetry message to signify robot running;
@@ -151,8 +143,7 @@ public class MecanumTeleop extends LinearOpMode {
             telemetry.addData("a",  "%b", a);
             telemetry.addData("armR", "%.2f", armR);
             telemetry.addData("armL", "%.2f", armL);
-            telemetry.addData("hookR", "%.2f", hookR);
-            telemetry.addData("hookL", "%.2f", hookL);
+            telemetry.addData("hookPosition", "%d", hookPos);
             telemetry.addData("claw", "%.2f", clawPosition); // VERY IMPORTANT CODE, shows the values on the phone of the servo
             telemetry.addData("plane", "%.2f", planePosition); // VERY IMPORTANT CODE, shows the values on the phone of the servo
             telemetry.update();
