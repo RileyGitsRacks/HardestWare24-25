@@ -71,40 +71,47 @@ public class SimpleTimeAuto extends LinearOpMode {
 
         waitForStart();
 
-        //Drive the robot forward
-        robot.frontLeftDrive.setPower(0.5); // motor value goes from -1 to 1 with 0 being stop
-        robot.frontRightDrive.setPower(0.5);
-        robot.backLeftDrive.setPower(0.5);
-        robot.backRightDrive.setPower(0.5);
-        sleep(500); //Stay here in the code for 1 second
-
-        //Turn the robot right
+        //Drive the robot right
         robot.frontLeftDrive.setPower(0.5);
         robot.frontRightDrive.setPower(-0.5);
-        robot.backLeftDrive.setPower(-0.5);
-        robot.backRightDrive.setPower(0.5);
-        sleep(500);
-
-        //Turn the robot left
-        robot.frontLeftDrive.setPower(-0.5);
-        robot.frontRightDrive.setPower(0.5);
         robot.backLeftDrive.setPower(0.5);
         robot.backRightDrive.setPower(-0.5);
-        sleep(500);
+        sleep(630); //Stay here in the code for 1 second
 
-        //Drive the robot backward
-        robot.frontLeftDrive.setPower(-0.5);
-        robot.frontRightDrive.setPower(-0.5);
-        robot.backLeftDrive.setPower(-0.5);
-        robot.backRightDrive.setPower(-0.5);
-        sleep(500); //Stay here in the code for 1 second
+        //Turn the robot forward
+        robot.frontLeftDrive.setPower(0.5);
+        robot.frontRightDrive.setPower(0.5);
+        robot.backLeftDrive.setPower(0.5);
+        robot.backRightDrive.setPower(0.5);
+        sleep(640);
 
         //Park, stop the robot
         robot.frontLeftDrive.setPower(0);
         robot.frontRightDrive.setPower(0);
         robot.backLeftDrive.setPower(0);
         robot.backRightDrive.setPower(0);
-        sleep(500); //Stay here in the code for 1 second
+        sleep(1400); //Stay here in the code for 1 second
+
+        //Turn the robot backward
+        robot.frontLeftDrive.setPower(-0.5);
+        robot.frontRightDrive.setPower(-0.5);
+        robot.backLeftDrive.setPower(-0.5);
+        robot.backRightDrive.setPower(-0.5);
+        sleep(720);
+
+        //Drive the robot right
+        robot.frontLeftDrive.setPower(0.5);
+        robot.frontRightDrive.setPower(-0.5);
+        robot.backLeftDrive.setPower(0.5);
+        robot.backRightDrive.setPower(-0.5);
+        sleep(1700);
+
+        //Park, stop the robot
+        robot.frontLeftDrive.setPower(0);
+        robot.frontRightDrive.setPower(0);
+        robot.backLeftDrive.setPower(0);
+        robot.backRightDrive.setPower(0);
+        sleep(1400); //Stay here in the code for 1 second
 
         telemetry.addData("Path", "Complete");
         telemetry.update();

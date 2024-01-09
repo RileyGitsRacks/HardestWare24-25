@@ -78,8 +78,8 @@ public class MecanumTeleop extends LinearOpMode {
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
 
-            double y = -gamepad1.left_stick_y;
-            double rx = gamepad1.left_stick_x;
+            double y = -gamepad1.left_stick_y * 0.5;
+            double rx = gamepad1.left_stick_x * 0.5;
             double x = gamepad1.right_stick_x * 0.5;
             boolean a = (gamepad2.a);
             double armR = gamepad2.right_trigger;
@@ -120,9 +120,9 @@ public class MecanumTeleop extends LinearOpMode {
 
             int hookPos = robot.hook.getCurrentPosition();
 
-            if (gamepad1.right_bumper && hookPos >= 5000)
+            if (gamepad1.right_bumper && hookPos >= -9700)
                 robot.hook.setPower(1);
-            else if (gamepad1.left_bumper && hookPos <= 12700)
+            else if (gamepad1.left_bumper && hookPos <= -200)
                 robot.hook.setPower(-1);
             else
                 robot.hook.setPower(0);

@@ -126,7 +126,7 @@ public class HardwareMecanum {
         backRightDrive.setDirection(DcMotor.Direction.FORWARD);
         arm.setDirection(DcMotor.Direction.FORWARD);
         hook.setDirection(DcMotorSimple.Direction.FORWARD);
-        leftAirplane.setDirection(DcMotorSimple.Direction.FORWARD);
+        leftAirplane.setDirection(DcMotorSimple.Direction.REVERSE);
         rightAirplane.setDirection(DcMotorSimple.Direction.FORWARD);
 
         // If there are encoders connected, switch to RUN_USING_ENCODER mode for greater accuracy
