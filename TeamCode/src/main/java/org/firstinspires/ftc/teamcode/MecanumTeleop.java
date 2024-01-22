@@ -60,6 +60,9 @@ public class MecanumTeleop extends LinearOpMode {
     double planePosition = robot.PLANE_HOME;
     final double PLANE_SPEED = 0.10;
 
+    double twerkPosition = robot.TWERK_HOME;
+    final double TWERK_SPEED = 0.10;
+
     @Override
     public void runOpMode() {
 
@@ -105,12 +108,22 @@ public class MecanumTeleop extends LinearOpMode {
             }else if (gamepad2.dpad_up) { // if the down d-pad is pressed, then do the next line of code
                 planePosition -= PLANE_SPEED; // subtract from the servo position so it moves the other direction
             }
+
+            if (gamepad2.y) {
+                twerkPosition += TWERK_SPEED;
+            }else if (gamepad2.a) {
+                twerkPosition -= TWERK_SPEED;
+            }
+
             // Move servo to the new position
             clawPosition = Range.clip(clawPosition, robot.CLAW_MIN_RANGE, robot.CLAW_MAX_RANGE); // make sure the position is valid
             robot.clawServo.setPosition(clawPosition); // this code here ACTUALLY sets the position of the servo so it moves.
 
             planePosition = Range.clip(planePosition, robot.PLANE_MIN_RANGE, robot.PLANE_MAX_RANGE); // make sure the position is valid
             robot.planeServo.setPosition(planePosition); // this code here ACTUALLY sets the position of the servo so it moves.
+
+            twerkPosition = Range.clip(twerkPosition, robot.TWERK_MIN_RANGE, robot.TWERK_MAX_RANGE); // make sure the position is valid
+            robot.twerkServo.setPosition(twerkPosition); // this code here ACTUALLY sets the position of the servo so it moves.
 
             //Arm motor code
 
@@ -146,6 +159,7 @@ public class MecanumTeleop extends LinearOpMode {
             telemetry.addData("hookPosition", "%d", hookPos);
             telemetry.addData("claw", "%.2f", clawPosition); // VERY IMPORTANT CODE, shows the values on the phone of the servo
             telemetry.addData("plane", "%.2f", planePosition); // VERY IMPORTANT CODE, shows the values on the phone of the servo
+            telemetry.addData("twerk", "%.2f", twerkPosition); // VERY IMPORTANT CODE, shows the values on the phone of the servo
             telemetry.update();
 
             // Pace this loop so jaw action is reasonable speed.

@@ -30,10 +30,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 /*
@@ -51,9 +48,9 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * Remove or comment out the @Disabled line to add this OpMode to the Driver Station OpMode list
  */
 
-@Autonomous(name="Mecanum: SimpleTimeAuto", group="Mecanum")
+@Autonomous(name="Mecanum: LeftTimeAuto", group="Mecanum")
 //@Disabled
-public class SimpleTimeAuto extends LinearOpMode {
+public class LeftTimeAuto extends LinearOpMode {
 
     /* Declare OpMode members. */
     HardwareMecanum robot = new HardwareMecanum();
@@ -71,11 +68,11 @@ public class SimpleTimeAuto extends LinearOpMode {
 
         waitForStart();
 
-        //Drive the robot right
-        robot.frontLeftDrive.setPower(0.5);
-        robot.frontRightDrive.setPower(-0.5);
-        robot.backLeftDrive.setPower(0.5);
-        robot.backRightDrive.setPower(-0.5);
+        //Drive the robot left
+        robot.frontLeftDrive.setPower(-0.5);
+        robot.frontRightDrive.setPower(0.5);
+        robot.backLeftDrive.setPower(-0.5);
+        robot.backRightDrive.setPower(0.5);
         sleep(630); //Stay here in the code for 1 second
 
         //Turn the robot forward
@@ -99,11 +96,11 @@ public class SimpleTimeAuto extends LinearOpMode {
         robot.backRightDrive.setPower(-0.5);
         sleep(720);
 
-        //Drive the robot right
-        robot.frontLeftDrive.setPower(0.5);
-        robot.frontRightDrive.setPower(-0.5);
-        robot.backLeftDrive.setPower(0.5);
-        robot.backRightDrive.setPower(-0.5);
+        //Drive the robot left
+        robot.frontLeftDrive.setPower(-0.5);
+        robot.frontRightDrive.setPower(0.5);
+        robot.backLeftDrive.setPower(-0.5);
+        robot.backRightDrive.setPower(0.5);
         sleep(1700);
 
         //Park, stop the robot
