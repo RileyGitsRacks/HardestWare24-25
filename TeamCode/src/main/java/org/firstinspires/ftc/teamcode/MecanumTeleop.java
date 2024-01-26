@@ -133,9 +133,9 @@ public class MecanumTeleop extends LinearOpMode {
 
             int hookPos = robot.hook.getCurrentPosition();
 
-            if (gamepad1.right_bumper && hookPos >= -9700)
+            if (gamepad1.right_bumper && hookPos <= 6400)
                 robot.hook.setPower(1);
-            else if (gamepad1.left_bumper && hookPos <= -200)
+            else if (gamepad1.left_bumper && hookPos >= -4400)
                 robot.hook.setPower(-1);
             else
                 robot.hook.setPower(0);

@@ -74,7 +74,7 @@ public class HardwareMecanum {
     public Servo    clawServo = null;
     public Servo    twerkServo = null;
 
-    public static final double CLAW_HOME      = 0.0; // Starting position for Servo Claw
+    public static final double CLAW_HOME      = 1.0; // Starting position for Servo Claw
     public static final double CLAW_MIN_RANGE = 0.0; // Smallest number value allowed for servo position
     public static final double CLAW_MAX_RANGE = 1.0; // Largest number value allowed for servo position
 
@@ -82,9 +82,9 @@ public class HardwareMecanum {
     public static final double PLANE_MIN_RANGE = 0.00; // Smallest number value allowed for servo position
     public static final double PLANE_MAX_RANGE = 0.30; // Largest number value allowed for servo position
 
-    public static final double TWERK_HOME      = 0.00; // Starting position for Servo Twerk
-    public static final double TWERK_MIN_RANGE = 0.00; // Smallest number value allowed for servo position
-    public static final double TWERK_MAX_RANGE = 1.00; // Largest number value allowed for servo position
+    public static final double TWERK_HOME      = 0.70; // Starting position for Servo Twerk
+    public static final double TWERK_MIN_RANGE = 0.70; // Smallest number value allowed for servo position
+    public static final double TWERK_MAX_RANGE = 2.00; // Largest number value allowed for servo position
 
     // local Opmode members
     HardwareMap hwMap           =  null;
@@ -162,5 +162,6 @@ public class HardwareMecanum {
         planeServo.setPosition(PLANE_HOME);
 
         twerkServo = hwMap.get(Servo.class, "twerk");
+        twerkServo.setPosition(TWERK_HOME);
     }
 }
