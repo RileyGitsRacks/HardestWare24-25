@@ -31,6 +31,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -66,8 +67,8 @@ public class HardwareMecanum {
     public DcMotor  frontRightDrive  = null;
     public DcMotor  backLeftDrive    = null;
     public DcMotor  backRightDrive   = null;
-    public DcMotor  arm = null;
-    public DcMotor  hook = null;
+    public DcMotorEx arm = null;
+    public DcMotorEx  hook = null;
     public DcMotor  leftAirplane = null;
     public DcMotor  rightAirplane = null;
     public Servo    planeServo = null;
@@ -116,8 +117,8 @@ public class HardwareMecanum {
         frontRightDrive = hwMap.get(DcMotor.class, "rf");
         backLeftDrive = hwMap.get(DcMotor.class, "lb");
         backRightDrive = hwMap.get(DcMotor.class, "rb");
-        arm = hwMap.get(DcMotor.class, "arm");
-        hook = hwMap.get(DcMotor.class, "hook");
+        arm = hwMap.get(DcMotorEx.class, "arm");
+        hook = hwMap.get(DcMotorEx.class, "hook");
         leftAirplane = hwMap.get(DcMotor.class, "la");
         rightAirplane = hwMap.get(DcMotor.class, "ra");
 
@@ -139,10 +140,19 @@ public class HardwareMecanum {
         frontRightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         backLeftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         backRightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        arm.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        hook.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        hook.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         leftAirplane.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         rightAirplane.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        //arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        // Don't remember if next line is needed.  I believe setTargetPosition is inited to zero so probably not needed
+        //arm.setTargetPosition(0);
+        // 2 below
+        arm.setPower(1); //set to the max speed you want the arm to move at
+        hook.setPower(1);
+
 
         // Set all motors to zero power
         frontLeftDrive.setPower(0);
@@ -153,6 +163,7 @@ public class HardwareMecanum {
         hook.setPower(0);
         leftAirplane.setPower(0);
         rightAirplane.setPower(0);
+
 
         //Define and initialize ALL installed servos.
         clawServo = hwMap.get(Servo.class, "claw"); // set equal to name of the servo motor on driver hub
