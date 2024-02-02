@@ -32,6 +32,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -61,8 +62,8 @@ public class MecanumTeleop extends LinearOpMode {
     double planePosition = robot.PLANE_HOME;
     final double PLANE_SPEED = 0.10;
 
-    double twerkPosition = robot.TWERK_HOME;
-    final double TWERK_SPEED = 0.10;
+    CRServo twerkPosition = robot.twerkServo;
+    //final double TWERK_SPEED = 0.10;
 
     @Override
     public void runOpMode() {
@@ -86,9 +87,6 @@ public class MecanumTeleop extends LinearOpMode {
             double rx = gamepad1.left_stick_x * 0.5;
             double x = gamepad1.right_stick_x * 0.5;
             boolean air = (gamepad1.x);
-            boolean armUp = gamepad2.a;
-            boolean armDown = gamepad2.y;
-            DcMotorEx arm = robot.arm;
 
 
 
@@ -113,9 +111,13 @@ public class MecanumTeleop extends LinearOpMode {
             }
 
             if (gamepad2.x) {
-                twerkPosition += TWERK_SPEED;
+                robot.twerkServo.setPower(0.2);
+                //twerkPosition += TWERK_SPEED;
             }else if (gamepad2.b) {
-                twerkPosition -= TWERK_SPEED;
+                robot.twerkServo.setPower(-0.2);
+                //twerkPosition -= TWERK_SPEED;
+            }else {
+                robot.twerkServo.setPower(0);
             }
 
             // Move servo to the new position
@@ -125,14 +127,14 @@ public class MecanumTeleop extends LinearOpMode {
             planePosition = Range.clip(planePosition, robot.PLANE_MIN_RANGE, robot.PLANE_MAX_RANGE); // make sure the position is valid
             robot.planeServo.setPosition(planePosition); // this code here ACTUALLY sets the position of the servo so it moves.
 
-            twerkPosition = Range.clip(twerkPosition, robot.TWERK_MIN_RANGE, robot.TWERK_MAX_RANGE); // make sure the position is valid
-            robot.twerkServo.setPosition(twerkPosition); // this code here ACTUALLY sets the position of the servo so it moves.
+            //twerkPosition = Range.clip(twerkPosition, robot.TWERK_MIN_RANGE, robot.TWERK_MAX_RANGE); // make sure the position is valid
+            //robot.twerkServo.setPosition(twerkPosition); // this code here ACTUALLY sets the position of the servo so it moves.
 
             //Arm motor code
 
-            int armPos = robot.arm.getCurrentPosition();
+            //int armPos = robot.arm.getCurrentPosition();
 
-
+            /*
             if (gamepad2.dpad_up) {
                 arm.setTargetPosition(arm.getCurrentPosition()+200);
                 robot.arm.setVelocity(100);
@@ -140,29 +142,25 @@ public class MecanumTeleop extends LinearOpMode {
                 robot.arm.setVelocity(100);
             }else {
                 robot.arm.setVelocity(0);
+            }*/
+
+            if (gamepad2.dpad_up) {
+                robot.arm.setPower(0.5);
+            }else if (gamepad2.dpad_down){
+                robot.arm.setPower(-0.5);
+            }else {
+                robot.arm.setPower(0);
             }
 
 
-/*
-            if(gamepad2.dpad_up)
-            {
-                arm.setTargetPosition(arm.getCurrentPosition()+200);
-                // 3 below
-                //tennisArm.setPower(0.7);
-            } else {
-                arm.setTargetPosition(arm.getCurrentPosition()-200);
-                // 4 below
-                //tennisArm.setPower(-0.7);
-            }
-*/
             //Hook motor code
 
             int hookPos = robot.hook.getCurrentPosition();
 
 
-            if (gamepad1.right_bumper && hookPos <= 10400)
+            if (gamepad1.right_bumper && hookPos <= 9600)
                 robot.hook.setVelocity(1000);
-            else if (gamepad1.left_bumper && hookPos >= 20)
+            else if (gamepad1.left_bumper && hookPos >= 0)
                 robot.hook.setVelocity(-1000);
             else
                 robot.hook.setVelocity(0);
@@ -181,7 +179,7 @@ public class MecanumTeleop extends LinearOpMode {
             telemetry.addData("rx",  "%.2f", rx);
             telemetry.addData("x",  "%.2f", x);
             telemetry.addData("a",  "%b", air);
-            telemetry.addData("arm", "%d", armPos);
+            //telemetry.addData("arm", "%d", armPos);
             telemetry.addData("hookPosition", "%d", hookPos);
             telemetry.addData("claw", "%.2f", clawPosition); // VERY IMPORTANT CODE, shows the values on the phone of the servo
             telemetry.addData("plane", "%.2f", planePosition); // VERY IMPORTANT CODE, shows the values on the phone of the servo
