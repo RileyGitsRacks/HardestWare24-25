@@ -98,9 +98,9 @@ public class MecanumTeleop extends LinearOpMode {
             robot.backRightDrive.setPower(y + x - rx);
 
             // left bumper and right bumper control the claw
-            if (gamepad2.right_bumper) { // if the right bumper is pressed on the gamepad, do this next line of code
+            if (gamepad2.b) { // if the right bumper is pressed on the gamepad, do this next line of code
                 clawPosition += CLAW_SPEED; // add to the servo position so it moves
-            }else if (gamepad2.left_bumper) { // if the left bumper button is pressed, then do the next line of code
+            }else if (gamepad2.x) { // if the left bumper button is pressed, then do the next line of code
                 clawPosition -= CLAW_SPEED;// subtract from the servo position so it moves the other direction
             }
 
@@ -110,10 +110,10 @@ public class MecanumTeleop extends LinearOpMode {
                 planePosition -= PLANE_SPEED; // subtract from the servo position so it moves the other direction
             }
 
-            if (gamepad2.x) {
+            if (gamepad2.a) {
                 robot.twerkServo.setPower(0.2);
                 //twerkPosition += TWERK_SPEED;
-            }else if (gamepad2.b) {
+            }else if (gamepad2.y) {
                 robot.twerkServo.setPower(-0.2);
                 //twerkPosition -= TWERK_SPEED;
             }else {
@@ -145,9 +145,9 @@ public class MecanumTeleop extends LinearOpMode {
             }*/
 
             if (gamepad2.dpad_up) {
-                robot.arm.setPower(0.5);
+                robot.arm.setPower(0.4);
             }else if (gamepad2.dpad_down){
-                robot.arm.setPower(-0.5);
+                robot.arm.setPower(-0.2);
             }else {
                 robot.arm.setPower(0);
             }
@@ -158,17 +158,17 @@ public class MecanumTeleop extends LinearOpMode {
             int hookPos = robot.hook.getCurrentPosition();
 
 
-            if (gamepad1.right_bumper && hookPos <= 9600)
-                robot.hook.setVelocity(1000);
-            else if (gamepad1.left_bumper && hookPos >= 0)
-                robot.hook.setVelocity(-1000);
+            if (gamepad1.right_bumper)// && hookPos <= 0)
+                robot.hook.setPower(1);
+            else if (gamepad1.left_bumper)// && hookPos >= 40000)
+                robot.hook.setPower(-1);
             else
-                robot.hook.setVelocity(0);
+                robot.hook.setPower(0);
 
             //Airplane launcher code
             if(air) {
-                robot.leftAirplane.setPower(1);
-                robot.rightAirplane.setPower(1);
+                robot.leftAirplane.setPower(.4);
+                robot.rightAirplane.setPower(.4);
             }else {
                 robot.leftAirplane.setPower(0);
                 robot.rightAirplane.setPower(0);

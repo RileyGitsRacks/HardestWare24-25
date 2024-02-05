@@ -69,18 +69,18 @@ public class HardwareMecanum {
     public DcMotor  backLeftDrive    = null;
     public DcMotor  backRightDrive   = null;
     public DcMotor arm = null;
-    public DcMotorEx  hook = null;
+    public DcMotor  hook = null;
     public DcMotor  leftAirplane = null;
     public DcMotor  rightAirplane = null;
     public Servo    planeServo = null;
     public Servo clawServo = null;
     public CRServo    twerkServo = null;
 
-    public static final double CLAW_HOME      = 0.0; // Starting position for Servo Claw
+    public static final double CLAW_HOME      = 1.0; // Starting position for Servo Claw
     public static final double CLAW_MIN_RANGE = 0.0; // Smallest number value allowed for servo position
     public static final double CLAW_MAX_RANGE = 1.0; // Largest number value allowed for servo position
 
-    public static final double PLANE_HOME      = 0.30; // Starting position for Servo Plane
+    public static final double PLANE_HOME      = 0.25; // Starting position for Servo Plane
     public static final double PLANE_MIN_RANGE = 0.00; // Smallest number value allowed for servo position
     public static final double PLANE_MAX_RANGE = 0.30; // Largest number value allowed for servo position
 
@@ -119,7 +119,7 @@ public class HardwareMecanum {
         backLeftDrive = hwMap.get(DcMotor.class, "lb");
         backRightDrive = hwMap.get(DcMotor.class, "rb");
         arm = hwMap.get(DcMotor.class, "arm");
-        hook = hwMap.get(DcMotorEx.class, "hook");
+        hook = hwMap.get(DcMotor.class, "hook");
         leftAirplane = hwMap.get(DcMotor.class, "la");
         rightAirplane = hwMap.get(DcMotor.class, "ra");
 
@@ -152,6 +152,7 @@ public class HardwareMecanum {
         //arm.setTargetPosition(0);
         //arm.setPower(1); //set to the max speed you want the arm to move at
         arm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        hook.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         hook.setPower(1);
 
 

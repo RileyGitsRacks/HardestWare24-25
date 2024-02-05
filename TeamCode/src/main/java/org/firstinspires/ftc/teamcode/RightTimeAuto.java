@@ -108,6 +108,12 @@ public class RightTimeAuto extends LinearOpMode {
         robot.frontRightDrive.setPower(0);
         robot.backLeftDrive.setPower(0);
         robot.backRightDrive.setPower(0);
+        sleep(1000); //Stay here in the code for 1 second
+
+        robot.twerkServo.setPower(0.5);
+        sleep(100);
+
+        robot.clawServo.setPosition(0);
         sleep(1400); //Stay here in the code for 1 second
 
         telemetry.addData("Path", "Complete");
