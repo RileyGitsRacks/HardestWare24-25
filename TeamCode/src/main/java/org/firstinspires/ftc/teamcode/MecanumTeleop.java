@@ -56,14 +56,14 @@ public class MecanumTeleop extends LinearOpMode {
 
     /* Declare OpMode members. */
     HardwareMecanum robot = new HardwareMecanum();
-    double clawPosition = robot.CLAW_HOME; //Servo's position
+    /*double clawPosition = robot.CLAW_HOME; //Servo's position
     final double CLAW_SPEED = 0.10; // Sets rate to move servo
 
     double planePosition = robot.PLANE_HOME;
     final double PLANE_SPEED = 0.10;
 
     CRServo twerkPosition = robot.twerkServo;
-    //final double TWERK_SPEED = 0.10;
+    //final double TWERK_SPEED = 0.10;*/
 
     @Override
     public void runOpMode() {
@@ -98,7 +98,7 @@ public class MecanumTeleop extends LinearOpMode {
             robot.backRightDrive.setPower(y + x - rx);
 
             // left bumper and right bumper control the claw
-            if (gamepad2.b) { // if the right bumper is pressed on the gamepad, do this next line of code
+            /*if (gamepad2.b) { // if the right bumper is pressed on the gamepad, do this next line of code
                 clawPosition += CLAW_SPEED; // add to the servo position so it moves
             }else if (gamepad2.x) { // if the left bumper button is pressed, then do the next line of code
                 clawPosition -= CLAW_SPEED;// subtract from the servo position so it moves the other direction
@@ -142,7 +142,7 @@ public class MecanumTeleop extends LinearOpMode {
                 robot.arm.setVelocity(100);
             }else {
                 robot.arm.setVelocity(0);
-            }*/
+            }*//*
 
             if (gamepad2.dpad_up) {
                 robot.arm.setPower(0.4);
@@ -172,19 +172,21 @@ public class MecanumTeleop extends LinearOpMode {
             }else {
                 robot.leftAirplane.setPower(0);
                 robot.rightAirplane.setPower(0);
-            }
+            }*/
 
             // Send telemetry message to signify robot running;
             telemetry.addData("y",  "%.2f", y);
             telemetry.addData("rx",  "%.2f", rx);
             telemetry.addData("x",  "%.2f", x);
             telemetry.addData("a",  "%b", air);
-            //telemetry.addData("arm", "%d", armPos);
+            /*telemetry.addData("arm", "%d", armPos);
             telemetry.addData("hookPosition", "%d", hookPos);
             telemetry.addData("claw", "%.2f", clawPosition); // VERY IMPORTANT CODE, shows the values on the phone of the servo
             telemetry.addData("plane", "%.2f", planePosition); // VERY IMPORTANT CODE, shows the values on the phone of the servo
             telemetry.addData("twerk", "%.2f", twerkPosition); // VERY IMPORTANT CODE, shows the values on the phone of the servo
+            */
             telemetry.update();
+
 
             // Pace this loop so jaw action is reasonable speed.
             sleep(50);

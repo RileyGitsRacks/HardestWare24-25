@@ -110,8 +110,8 @@ public class LeftTimeAuto extends LinearOpMode {
         robot.backRightDrive.setPower(0);
         sleep(1400); //Stay here in the code for 1 second
 
-        robot.clawServo.setPosition(0);
-        sleep(1400); //Stay here in the code for 1 second
+        //robot.clawServo.setPosition(0);
+        //sleep(1400); //Stay here in the code for 1 second
 
         telemetry.addData("Path", "Complete");
         telemetry.update();
