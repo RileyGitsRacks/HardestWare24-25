@@ -85,7 +85,7 @@ public class MecanumTeleop extends LinearOpMode {
 
             double y = -gamepad1.left_stick_y * 0.5;
             double rx = gamepad1.left_stick_x * 0.5;
-            double x = gamepad1.right_stick_x * 0.5;
+            double x = gamepad1.right_stick_x * -0.5;
             boolean air = (gamepad1.x);
 
 
